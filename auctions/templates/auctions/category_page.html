@@ -1,0 +1,30 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+    <h2>Active Listings in {{ category.title }}</h2>
+    <br>
+
+    {% if not listings %}
+        <ul>
+            <li>No active listings.</li>
+        </ul>
+    {% endif %}
+
+    {% for listing in listings %}
+        <div class="listings-list">
+            <div style="width: 300px; text-align: center;">
+                <img src="{{ listing.url }}" style="max-height: 200px; max-width: 300px;">
+            </div>
+            <div style="padding: 10px; margin-left: 20px;">
+                <h4><a href="{% url 'listing_page' listing.id %}">{{ listing.item_name }}</a></h4>
+                <h6>Last Bid: ${{ listing.bids.last.price_bid }} by {{ listing.bids.last.user }}</h6>
+                Starting Price: ${{ listing.price_start }}
+                <br>
+                <small>
+                    <li>Created {{ listing.timestamp_start }}</li>
+                </small>
+            </div>
+        </div>
+        <hr>
+    {% endfor %}
+{% endblock %}

@@ -1,0 +1,23 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+    <h2>Auctions Won</h2>
+    <br>
+
+    {% for listing in listings %}
+        <div class="auctions-won">
+            <div style="width: 150px; text-align: center;">
+                <img src="{{ listing.url }}" style="max-height: 100px; max-width: 150px;">
+            </div>
+            <div style="padding: 10px; margin-left: 20px;">
+                <h4><a href="{% url 'listing_page' listing.id %}">{{ listing.item_name }}</a></h4>
+                <h6>Price Paid: ${{ listing.bids.last.price_bid }}</h6>
+                <small>
+                    <li>Created {{ listing.timestamp_start }}</li>
+                    <li>Ended {{ listing.timestamp_end }}</li>
+                </small>
+            </div>
+        </div>
+        <hr>
+    {% endfor %}
+{% endblock %}
